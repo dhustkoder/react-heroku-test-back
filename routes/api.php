@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('users', function (Request $request) {
-	Log::error("hello");
+	error_log("testing");
 	return json_encode(response(User::all()));
 });
 
