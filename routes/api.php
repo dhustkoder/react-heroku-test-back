@@ -19,5 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('users', function (Request $request) {
-	return response()->json(['name' => 'nothing', 'bla' => 'foo']);
+	return json_encode(response(User::all()));
+});
+
+Route::post('users', function (Request $request) {
+	return 'hey';
 });
