@@ -12,7 +12,6 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-    'log' => env('APP_LOG', 'single'),
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
