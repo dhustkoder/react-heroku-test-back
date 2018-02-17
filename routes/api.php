@@ -25,5 +25,6 @@ Route::get('users', function (Request $request) {
 });
 
 Route::post('users', function (Request $request) {
-	return 'hey';
+	file_put_contents("php://stderr", "POST USERS: " + $request->all());
+	return "";
 });
