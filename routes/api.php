@@ -44,7 +44,30 @@ Route::post('users/register', function (Request $request) {
 			'password' => $request->input('password'),
 		]);
 
-		return json_encode(response(['success' => 'Usuário registrado com sucesso!']));
+		return json_encode(response(['success' => 'Usuário registrado com sucesso']));
+	} catch (Exception $error) {
+		return json_encode(response(['error' => (string)$error->getMessage()]));
+	}
+});
+
+Route::post('users/login', function (Request $request) {
+	try {
+		file_put_contents("php://stderr",
+			"POST USERS: "
+			. "login: " . (string)$request->input('login') . "\n"
+			. "email: " . (string)$request->input('email') . "\n"
+			. "password: " . (string)$request->input('password') . "\n"
+		);
+
+		$user = User::where('name', (string)$request->input('login'));
+
+		if ($user == null)
+			return json_encode(response(['error' => 'Login não registrado' ]));
+
+		if ((string)$user['password'] != $request->input('password'))
+			return json_encode(response(['error'] => 'password incorreto'))
+
+		return json_encode(response(['success' => 'autenticado']));
 	} catch (Exception $error) {
 		return json_encode(response(['error' => (string)$error->getMessage()]));
 	}
