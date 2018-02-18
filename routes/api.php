@@ -25,13 +25,25 @@ Route::get('users', function (Request $request) {
 });
 
 Route::post('users/register', function (Request $request) {
-	
-	$ret = User::create([
-		'name' => $request->input('login'),
-		'email' => $request->input('email'),
-		'password' => $request->input('password'),
-	]);
+	file_put_contents("php://stderr",
+		"POST USERS: " . 
+		(string)$request->input('login')
+		.
+		(string)$request->input('email')
+		.
+		(string)$request->input('password')
+	);
 
-	file_put_contents("php://stderr", "User::create ret: " . (string)$ret);
-	return json_encode(response($ret));
+	try {
+		User::create([
+			'name' => $request->input('login'),
+			'email' => $request->input('email'),
+			'password' => $request->input('password'),
+		]);
+
+		file_put_contents("php://stderr", "User::create ret: " . (string)$ret);
+		return json_encode(response($ret));
+	} catch (Exception $error) {
+		return json_encode(response($error->getMessage()));
+	}
 });
