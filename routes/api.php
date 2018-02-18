@@ -63,8 +63,8 @@ Route::post('users/login', function (Request $request) {
 		if ($user == null)
 			return json_encode(response(['error' => 'Login não registrado' ]));
 
-		if ((string)$user['password'] != $request->input('password'))
-			return json_encode(response(['error'] => 'password incorreto'))
+		if ((string)$user['password'] != (string)$request->input('password'))
+			return json_encode(response(['error' => 'password incorreto']))
 
 		return json_encode(response(['success' => 'autenticado']));
 	} catch (Exception $error) {
