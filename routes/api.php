@@ -36,7 +36,7 @@ Route::post('users/register', function (Request $request) {
 		$user = User::where('name', (string)$request->input('login'));
 
 		if ($user != null)
-			return json_encode(response("{ \"error\": \"Email já em uso\" }"));
+			return json_encode(response(['error' => 'Email já em uso' ]));
 
 		User::create([
 			'name' => $request->input('login'),
@@ -44,8 +44,8 @@ Route::post('users/register', function (Request $request) {
 			'password' => $request->input('password'),
 		]);
 
-		return json_encode(response("{ \"success\": \"Usuário registrado com sucesso\" }"));
+		return json_encode(response(['success' => 'Usuário registrado com sucesso!']));
 	} catch (Exception $error) {
-		return json_encode(response("{ \"error\": \"" . (string)$error->getMessage() . "\""));
+		return json_encode(response(['error' => (string)$error->getMessage()]));
 	}
 });
