@@ -25,6 +25,6 @@ Route::get('users', function (Request $request) {
 });
 
 Route::post('users', function (Request $request) {
-	file_put_contents("php://stderr", "POST USERS: " . (string)$request->json());
-	return $request->json()->all();
+	file_put_contents("php://stderr", "POST USERS: " . (string)$request);
+	return json_encode(response((string)$request));
 });
