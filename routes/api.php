@@ -24,7 +24,22 @@ Route::get('users', function (Request $request) {
 	return json_encode(response(User::all()));
 });
 
-Route::post('users', function (Request $request) {
-	file_put_contents("php://stderr", "POST USERS: " . (string)$request->input('login'));
-	return json_encode(response((string)$request));
+Route::post('users/register', function (Request $request) {
+	file_put_contents("php://stderr",
+		"POST USERS: " . 
+		(string)$request->input('login')
+		.
+		(string)$request->input('email')
+		.
+		(string)$request->input('password')
+	);
+
+	$ret = User::create([
+		'name' => $request->input('login'),
+		'email' => $request->input('email'),
+		'password' => $request->input('password'),
+	]);
+
+	file_put_contents("php://stderr", "User::create ret: " . (string)$ret);
+	return json_encode(response($ret));
 });
