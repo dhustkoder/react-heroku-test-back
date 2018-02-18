@@ -25,25 +25,27 @@ Route::get('users', function (Request $request) {
 });
 
 Route::post('users/register', function (Request $request) {
-	file_put_contents("php://stderr",
-		"POST USERS: " . 
-		(string)$request->input('login')
-		.
-		(string)$request->input('email')
-		.
-		(string)$request->input('password')
-	);
-
 	try {
+		file_put_contents("php://stderr",
+			"POST USERS: "
+			. "login: " . (string)$request->input('login') . "\n"
+			. "email: " . (string)$request->input('email') . "\n"
+			. "password: " . (string)$request->input('password') . "\n"
+		);
+
+		$user = User::where('name', (string)$request->input('login'));
+
+		if ($user != null)
+			return json_encode(response("{ \"error\": \"Email já em uso\" }"));
+
 		User::create([
 			'name' => $request->input('login'),
 			'email' => $request->input('email'),
 			'password' => $request->input('password'),
 		]);
 
-		file_put_contents("php://stderr", "User::create ret: " . (string)$ret);
-		return json_encode(response($ret));
+		return json_encode(response("{ \"success\": \"Usuário registrado com sucesso\" }"));
 	} catch (Exception $error) {
-		return json_encode(response($error->getMessage()));
+		return json_encode(response("{ \"error\": \"" . (string)$error->getMessage() "\""));
 	}
 });
