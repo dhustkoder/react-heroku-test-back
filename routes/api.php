@@ -46,6 +46,6 @@ Route::post('users/register', function (Request $request) {
 
 		return json_encode(response("{ \"success\": \"Usuário registrado com sucesso\" }"));
 	} catch (Exception $error) {
-		return json_encode(response("{ \"error\": \"" . (string)$error->getMessage() "\""));
+		return json_encode(response("{ \"error\": \"" . (string)$error->getMessage() . "\""));
 	}
 });
