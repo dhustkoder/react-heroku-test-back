@@ -33,10 +33,15 @@ Route::post('users/register', function (Request $request) {
 			. "password: " . (string)$request->input('password') . "\n"
 		);
 
+		$user = User::where('email', (string)$request->input('email'));
+
+		if ((string)$user->value('email') == (string)$request->input('email'))
+			return json_encode(response(['error' => 'Email já em uso' ]));
+
 		$user = User::where('name', (string)$request->input('login'));
 
-		if ($user != null)
-			return json_encode(response(['error' => 'Email já em uso' ]));
+		if ((string)$user->value('name') == (string)$request->input('login'))
+			return json_encode(response(['error' => 'Login já em uso' ]));			
 
 		User::create([
 			'name' => $request->input('login'),
