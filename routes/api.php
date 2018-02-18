@@ -27,7 +27,7 @@ Route::get('users', function (Request $request) {
 Route::post('users/register', function (Request $request) {
 	try {
 		file_put_contents("php://stderr",
-			"POST USERS: "
+			"POST USERS/REGISTER: "
 			. "login: " . (string)$request->input('login') . "\n"
 			. "email: " . (string)$request->input('email') . "\n"
 			. "password: " . (string)$request->input('password') . "\n"
@@ -53,7 +53,7 @@ Route::post('users/register', function (Request $request) {
 Route::post('users/login', function (Request $request) {
 	try {
 		file_put_contents("php://stderr",
-			"POST USERS: "
+			"POST USERS/LOGIN: "
 			. "login: " . (string)$request->input('login') . "\n"
 			. "password: " . (string)$request->input('password') . "\n"
 		);
