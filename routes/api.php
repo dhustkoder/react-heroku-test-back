@@ -25,15 +25,7 @@ Route::get('users', function (Request $request) {
 });
 
 Route::post('users/register', function (Request $request) {
-	file_put_contents("php://stderr",
-		"POST USERS: " . 
-		(string)$request->input('login')
-		.
-		(string)$request->input('email')
-		.
-		(string)$request->input('password')
-	);
-
+	
 	$ret = User::create([
 		'name' => $request->input('login'),
 		'email' => $request->input('email'),
