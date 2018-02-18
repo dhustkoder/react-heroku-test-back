@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('users', function (Request $request) {
-	file_put_contents("php://stderr", "hello, this is a test!\n");
+	// get all users
 	return json_encode(response(User::all()));
 });
 
@@ -55,7 +55,6 @@ Route::post('users/login', function (Request $request) {
 		file_put_contents("php://stderr",
 			"POST USERS: "
 			. "login: " . (string)$request->input('login') . "\n"
-			. "email: " . (string)$request->input('email') . "\n"
 			. "password: " . (string)$request->input('password') . "\n"
 		);
 
